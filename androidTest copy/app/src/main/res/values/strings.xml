@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">androidTest</string>
+    <string name="begin">Begin</string>
+    <string name="gameTitle">Towers of Hanoi</string>
+    <string name="skyDesc">This is the game background</string>
+    <string name="grassDesc">This is the game base</string>
+</resources>
