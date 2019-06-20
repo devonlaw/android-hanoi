@@ -42,17 +42,19 @@ class gameActivity : AppCompatActivity() {
         if (isSelected) {
             //TODO: if the top block in a stack has been selected
             findBlockX(view)
-            previous = originalFrame(selectedBlock)
+            //previous = originalFrame(selectedBlock)
             if (validateMove(view)){
                 moveBlock(selectedBlock)
-                addToStack(view)
             }
             deselectBlock()
+            addToStack(view)
+
             isSelected = false
 
         } else {
             //TODO: if no block is selected
             findTopOfStack(view)
+            removeTopOfStack(view)
         }
     }
 
@@ -78,7 +80,6 @@ class gameActivity : AppCompatActivity() {
     }
 
     private fun moveBlock(view: View) {
-        removeTopOfStack(previous)
         ObjectAnimator.ofFloat(view, "translationX", blockX).apply {
             duration = 200
             start()
