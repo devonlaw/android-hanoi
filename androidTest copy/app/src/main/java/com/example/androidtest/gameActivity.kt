@@ -17,7 +17,7 @@ class gameActivity : AppCompatActivity() {
     private lateinit var frame3: View
     private lateinit var selectedBlock: View
     private var blockX: Float = 0f
-    private var remove = false
+    private lateinit var previous: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +42,7 @@ class gameActivity : AppCompatActivity() {
         if (isSelected) {
             //TODO: if the top block in a stack has been selected
             findBlockX(view)
+            previous = originalFrame(selectedBlock)
             if (validateMove(view)){
                 moveBlock(selectedBlock)
                 addToStack(view)
@@ -52,23 +53,24 @@ class gameActivity : AppCompatActivity() {
         } else {
             //TODO: if no block is selected
             findTopOfStack(view)
-            removeTopOfStack(view)
         }
     }
 
     private fun findTopOfStack(view: View) {
         if (view == frame1 && !stack1.isEmpty()) {
             selectedBlock = stack1.last()
+            isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         } else if (view == frame2 && !stack2.isEmpty()) {
             selectedBlock = stack2.last()
+            isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         } else if (view == frame3 && !stack3.isEmpty()) {
             selectedBlock = stack3.last()
+            isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         }
 
-        isSelected = true
     }
 
     private fun deselectBlock() {
@@ -76,6 +78,7 @@ class gameActivity : AppCompatActivity() {
     }
 
     private fun moveBlock(view: View) {
+        removeTopOfStack(previous)
         ObjectAnimator.ofFloat(view, "translationX", blockX).apply {
             duration = 200
             start()
@@ -123,14 +126,14 @@ class gameActivity : AppCompatActivity() {
         return true
     }
 
-//    private fun originalFrame(view: View): View {
-//        if (view.x == frame1.x) {
-//            return frame1
-//        } else if (view.x == frame2.x) {
-//            return frame2
-//        } else {
-//            return frame3
-//        }
-//    }
+    private fun originalFrame(view: View): View {
+        if (view.x == frame1.x) {
+            return frame1
+        } else if (view.x == frame2.x) {
+            return frame2
+        } else {
+            return frame3
+        }
+    }
 
 }
