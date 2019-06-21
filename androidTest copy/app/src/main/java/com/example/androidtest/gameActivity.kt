@@ -8,10 +8,10 @@ import android.view.View
 
 class gameActivity : AppCompatActivity() {
 
-    var stack1 = mutableListOf<View>()
-    var stack2 = mutableListOf<View>()
-    var stack3 = mutableListOf<View>()
-    var isSelected = false
+    private var stack1 = mutableListOf<View>()
+    private var stack2 = mutableListOf<View>()
+    private var stack3 = mutableListOf<View>()
+    private var isSelected = false
     private lateinit var frame1: View
     private lateinit var frame2: View
     private lateinit var frame3: View
@@ -42,17 +42,18 @@ class gameActivity : AppCompatActivity() {
         if (isSelected) {
             //TODO: if the top block in a stack has been selected
             findBlockX(view)
-            //previous = originalFrame(selectedBlock)
             if (validateMove(view)){
                 moveBlock(selectedBlock)
+                addToStack(view)
+            } else {
+                addToStack(previous)
             }
             deselectBlock()
-            addToStack(view)
-
             isSelected = false
 
         } else {
             //TODO: if no block is selected
+            previous = originalFrame(selectedBlock)
             findTopOfStack(view)
             removeTopOfStack(view)
         }
