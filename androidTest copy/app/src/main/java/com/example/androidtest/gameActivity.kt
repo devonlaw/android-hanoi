@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 
 class gameActivity : AppCompatActivity() {
 
@@ -17,6 +18,9 @@ class gameActivity : AppCompatActivity() {
     private lateinit var selectedBlock: View
     private var blockX: Float = 0f
     private lateinit var previous: View
+    private var moveCount = 0
+    private var moves = "0"
+    private lateinit var textMoves: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +30,7 @@ class gameActivity : AppCompatActivity() {
         val block3 = findViewById<View>(R.id.block3)
         val block4 = findViewById<View>(R.id.block4)
         val block5 = findViewById<View>(R.id.block5)
+        textMoves = findViewById(R.id.moveCount)
         frame1 = findViewById(R.id.frame1)
         frame2 = findViewById(R.id.frame2)
         frame3 = findViewById(R.id.frame3)
@@ -43,6 +48,8 @@ class gameActivity : AppCompatActivity() {
             if (validateMove(view)){
                 moveBlock(selectedBlock)
                 addToStack(view)
+                incrementMove()
+                textMoves.text = moves
             } else {
                 addToStack(previous)
             }
@@ -129,5 +136,10 @@ class gameActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    private fun incrementMove() {
+        moveCount++
+        moves = moveCount.toString()
     }
 }

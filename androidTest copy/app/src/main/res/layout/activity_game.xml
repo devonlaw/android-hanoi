@@ -21,6 +21,16 @@
             android:src="@drawable/grass"
             android:contentDescription="@string/grassDesc"
             android:layout_alignParentBottom="true"/>
+    <TextView
+            android:id="@+id/moveCount"
+            android:text="@string/moveCount"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/grey"
+            android:textSize="@android:dimen/app_icon_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
     <View
             android:id="@+id/block1"
             android:background="@color/grey"

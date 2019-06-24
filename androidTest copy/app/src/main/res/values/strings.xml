@@ -4,4 +4,5 @@
     <string name="gameTitle">Towers of Hanoi</string>
     <string name="skyDesc">This is the game background</string>
     <string name="grassDesc">This is the game base</string>
+    <string name="moveCount">0</string>
 </resources>
