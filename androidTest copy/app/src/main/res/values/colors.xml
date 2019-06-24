@@ -5,4 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="grey">#bebebe</color>
     <color name="selected">#ffff00</color>
+    <color name="blue">#00bfff</color>
+    <color name="green">#7cfc00</color>
+    <color name="red">#ff0000</color>
+    <color name="purple">#9932cc</color>
+    <color name="orange">#ffa500</color>
 </resources>

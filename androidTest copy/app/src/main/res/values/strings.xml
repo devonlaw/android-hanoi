@@ -5,4 +5,6 @@
     <string name="skyDesc">This is the game background</string>
     <string name="grassDesc">This is the game base</string>
     <string name="moveCount">0</string>
+    <string name="gameEndMessage">Completed in </string>
+    <string name="exclaim">!</string>
 </resources>

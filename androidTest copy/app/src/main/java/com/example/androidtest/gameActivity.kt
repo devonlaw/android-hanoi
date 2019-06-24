@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import kotlinx.android.synthetic.main.activity_game.*
 
 class gameActivity : AppCompatActivity() {
 
@@ -42,25 +43,34 @@ class gameActivity : AppCompatActivity() {
     }
 
     fun main(view: View) {
-        if (isSelected) {
-            //TODO: if the top block in a stack has been selected
-            findBlockX(view)
-            if (validateMove(view)){
-                moveBlock(selectedBlock)
-                addToStack(view)
-                incrementMove()
-                textMoves.text = moves
-            } else {
-                addToStack(previous)
-            }
-            deselectBlock()
-            isSelected = false
+        if (!gameEnd()) {
+            if (isSelected) {
+                //TODO: if the top block in a stack has been selected
+                findBlockX(view)
+                if (validateMove(view)) {
+                    moveBlock(selectedBlock)
+                    addToStack(view)
+                    incrementMove()
+                    textMoves.text = moves
+                } else {
+                    addToStack(previous)
+                }
+                deselectBlock()
+                isSelected = false
 
+            } else {
+                //TODO: if no block is selected
+                findTopOfStack(view)
+                previous = view
+                removeTopOfStack(view)
+            }
         } else {
-            //TODO: if no block is selected
-            findTopOfStack(view)
-            previous = view
-            removeTopOfStack(view)
+            textMoves.text = "Completed in " + moves + "!"
+            block1.setBackgroundColor(resources.getColor(R.color.purple))
+            block2.setBackgroundColor(resources.getColor(R.color.red))
+            block3.setBackgroundColor(resources.getColor(R.color.blue))
+            block4.setBackgroundColor(resources.getColor(R.color.green))
+            block5.setBackgroundColor(resources.getColor(R.color.orange))
         }
     }
 
@@ -122,7 +132,9 @@ class gameActivity : AppCompatActivity() {
     }
 
     private fun validateMove(view: View): Boolean {
-        if (view == frame1 && !stack1.isEmpty()) {
+        if (view == previous) {
+            return false
+        } else if (view == frame1 && !stack1.isEmpty()) {
             if (selectedBlock.width > stack1.last().width) {
                 return false
             }
@@ -141,5 +153,13 @@ class gameActivity : AppCompatActivity() {
     private fun incrementMove() {
         moveCount++
         moves = moveCount.toString()
+    }
+
+    private fun gameEnd(): Boolean {
+        if (stack3.count() == 5) {
+            return true
+        }
+
+        return false
     }
 }
