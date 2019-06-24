@@ -3,7 +3,6 @@ package com.example.androidtest
 import android.animation.ObjectAnimator
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 
 class gameActivity : AppCompatActivity() {
@@ -35,7 +34,6 @@ class gameActivity : AppCompatActivity() {
         stack1.add(block3)
         stack1.add(block4)
         stack1.add(block5)
-        selectedBlock = stack1.first()
     }
 
     fun main(view: View) {
@@ -53,23 +51,28 @@ class gameActivity : AppCompatActivity() {
 
         } else {
             //TODO: if no block is selected
-            previous = originalFrame(selectedBlock)
             findTopOfStack(view)
+            previous = view
             removeTopOfStack(view)
         }
     }
 
     private fun findTopOfStack(view: View) {
+        var last = 0
         if (view == frame1 && !stack1.isEmpty()) {
-            selectedBlock = stack1.last()
+            last = stack1.lastIndex
+            selectedBlock = stack1.elementAt(last)
             isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         } else if (view == frame2 && !stack2.isEmpty()) {
+            last = stack2.lastIndex
+            selectedBlock = stack2.elementAt(last)
             selectedBlock = stack2.last()
             isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         } else if (view == frame3 && !stack3.isEmpty()) {
-            selectedBlock = stack3.last()
+            last = stack3.lastIndex
+            selectedBlock = stack3.elementAt(last)
             isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         }
@@ -127,15 +130,4 @@ class gameActivity : AppCompatActivity() {
         }
         return true
     }
-
-    private fun originalFrame(view: View): View {
-        if (view.x == frame1.x) {
-            return frame1
-        } else if (view.x == frame2.x) {
-            return frame2
-        } else {
-            return frame3
-        }
-    }
-
 }
