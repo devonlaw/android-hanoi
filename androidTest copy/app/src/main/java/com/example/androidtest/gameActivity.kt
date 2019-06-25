@@ -60,11 +60,8 @@ class gameActivity : AppCompatActivity() {
                 //TODO: if the top block in a stack has been selected
                 findBlockX(view)
                 findBlockY(selectedBlock, view)
-                //line.
                 if (validateMove(view)) {
                     moveBlock(selectedBlock)
-                    System.out.println(blockY)
-                    System.out.println("/////////////")
                     addToStack(view)
                     incrementMove()
                     textMoves.text = moves
@@ -80,7 +77,8 @@ class gameActivity : AppCompatActivity() {
                 previous = view
                 removeTopOfStack(view)
             }
-        } else {
+        }
+        if (stack3.count() == 5) {
             textMoves.text = "Completed in " + moves + "!"
             block1.setBackgroundColor(resources.getColor(R.color.purple))
             block2.setBackgroundColor(resources.getColor(R.color.red))
@@ -140,7 +138,6 @@ class gameActivity : AppCompatActivity() {
         when (view) {
 
             block5 -> {
-                System.out.println("selected block = 1")
                 when (returnStack(frame).count()) {
                     0 -> blockY = height * 4
                     1 -> blockY = height * 3
@@ -150,7 +147,6 @@ class gameActivity : AppCompatActivity() {
                 }
             }
             block4 -> {
-                System.out.println("selected block = 2")
                 when(returnStack(frame).count()){
                     0-> blockY = height * 3
                     1 -> blockY = height * 2
@@ -159,7 +155,6 @@ class gameActivity : AppCompatActivity() {
                 }
             }
             block3 -> {
-                System.out.println("selected block = 3")
                 when(returnStack(frame).count()){
                     0-> blockY = height * 2
                     1 -> blockY = height
@@ -167,14 +162,12 @@ class gameActivity : AppCompatActivity() {
                 }
             }
             block2 -> {
-                System.out.println("selected block = 4")
                 when(returnStack(frame).count()){
                     0-> blockY = height
                     1 -> blockY = 0f
                 }
             }
             block1 -> {
-                System.out.println("selected block = 5")
                 blockY = 0f
             }
         }
