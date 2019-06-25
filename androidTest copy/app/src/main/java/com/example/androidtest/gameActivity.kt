@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_game.*
+import java.nio.file.Path
 
 class gameActivity : AppCompatActivity() {
 
@@ -22,6 +23,12 @@ class gameActivity : AppCompatActivity() {
     private var moveCount = 0
     private var moves = "0"
     private lateinit var textMoves: TextView
+    private var height = 0f
+    private var setup = true
+    private var blockY = 0f
+    private var prevStack = 0
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,15 +47,24 @@ class gameActivity : AppCompatActivity() {
         stack1.add(block3)
         stack1.add(block4)
         stack1.add(block5)
+        height = stack1.first().height.toFloat()
     }
 
     fun main(view: View) {
         if (!gameEnd()) {
+            if (setup) {
+                height = stack1.last().height.toFloat()
+                setup = false
+            }
             if (isSelected) {
                 //TODO: if the top block in a stack has been selected
                 findBlockX(view)
+                findBlockY(view)
+                //line.
                 if (validateMove(view)) {
                     moveBlock(selectedBlock)
+                    System.out.println(blockY)
+                    System.out.println("/////////////")
                     addToStack(view)
                     incrementMove()
                     textMoves.text = moves
@@ -78,17 +94,20 @@ class gameActivity : AppCompatActivity() {
         var last = 0
         if (view == frame1 && !stack1.isEmpty()) {
             last = stack1.lastIndex
+            prevStack = stack1.count()
             selectedBlock = stack1.elementAt(last)
             isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         } else if (view == frame2 && !stack2.isEmpty()) {
             last = stack2.lastIndex
+            prevStack = stack2.count()
             selectedBlock = stack2.elementAt(last)
             selectedBlock = stack2.last()
             isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
         } else if (view == frame3 && !stack3.isEmpty()) {
             last = stack3.lastIndex
+            prevStack = stack3.count()
             selectedBlock = stack3.elementAt(last)
             isSelected = true
             selectedBlock.setBackgroundColor(resources.getColor(R.color.selected))
@@ -105,10 +124,56 @@ class gameActivity : AppCompatActivity() {
             duration = 200
             start()
         }
+
+        ObjectAnimator.ofFloat(view, "translationY", blockY).apply {
+            duration = 200
+            start()
+        }
+
     }
 
     private fun findBlockX(view: View) {
         blockX = view.x
+    }
+
+    private fun findBlockY(view: View) {
+        when (view) {
+            frame1 -> {
+
+            }
+
+            frame2 -> {
+                System.out.println(prevStack)
+                System.out.println(stack2.count())
+                System.out.println("----------------")
+                when (prevStack - stack2.count()) {
+                    5 -> blockY = height * 4
+                    4 -> blockY = height * 3
+                    3 -> blockY = height * 2
+                    2 -> blockY = height
+                    (0) -> blockY = -height
+                    (-2) -> blockY = -(height * 2)
+                    (-3) -> blockY = 0f
+                    (-4) -> blockY = -(height * 4)
+                }
+            }
+
+            frame3 -> {
+                System.out.println(prevStack)
+                System.out.println(stack3.count())
+                System.out.println("----------------")
+                when (prevStack - stack3.count()) {
+                    5 -> blockY = height * 4
+                    4 -> blockY = height * 3
+                    3 -> blockY = height * 2
+                    2 -> blockY = height
+                    (0) -> blockY = -height
+                    (-2) -> blockY = -(height * 2)
+                    (-3) -> blockY = 0f
+                    (-4) -> blockY = -(height * 4)
+                }
+            }
+        }
     }
 
     private fun removeTopOfStack(view: View) {
