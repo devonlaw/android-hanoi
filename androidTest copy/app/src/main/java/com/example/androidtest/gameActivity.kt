@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_game.*
-import java.nio.file.Path
 
 class gameActivity : AppCompatActivity() {
 
@@ -51,13 +50,14 @@ class gameActivity : AppCompatActivity() {
     }
 
     fun main(view: View) {
+        //first time set up (only runs once)
         if (!gameEnd()) {
             if (setup) {
                 height = block1.height.toFloat()
                 setup = false
             }
             if (isSelected) {
-                //TODO: if the top block in a stack has been selected
+                //if the top block in a stack has been selected
                 findBlockX(view)
                 findBlockY(selectedBlock, view)
                 if (validateMove(view)) {
@@ -72,12 +72,13 @@ class gameActivity : AppCompatActivity() {
                 isSelected = false
 
             } else {
-                //TODO: if no block is selected
+                //if no block is selected
                 findTopOfStack(view)
                 previous = view
                 removeTopOfStack(view)
             }
         }
+        //change the colours if the game is over
         if (stack3.count() == 5) {
             textMoves.text = "Completed in " + moves + "!"
             block1.setBackgroundColor(resources.getColor(R.color.purple))
