@@ -53,13 +53,13 @@ class gameActivity : AppCompatActivity() {
     fun main(view: View) {
         if (!gameEnd()) {
             if (setup) {
-                height = stack1.last().height.toFloat()
+                height = block1.height.toFloat()
                 setup = false
             }
             if (isSelected) {
                 //TODO: if the top block in a stack has been selected
                 findBlockX(view)
-                findBlockY(view)
+                findBlockY(selectedBlock, view)
                 //line.
                 if (validateMove(view)) {
                     moveBlock(selectedBlock)
@@ -136,42 +136,46 @@ class gameActivity : AppCompatActivity() {
         blockX = view.x
     }
 
-    private fun findBlockY(view: View) {
+    private fun findBlockY(view: View, frame: View) {
         when (view) {
-            frame1 -> {
 
-            }
-
-            frame2 -> {
-                System.out.println(prevStack)
-                System.out.println(stack2.count())
-                System.out.println("----------------")
-                when (prevStack - stack2.count()) {
-                    5 -> blockY = height * 4
-                    4 -> blockY = height * 3
-                    3 -> blockY = height * 2
-                    2 -> blockY = height
-                    (0) -> blockY = -height
-                    (-2) -> blockY = -(height * 2)
-                    (-3) -> blockY = 0f
-                    (-4) -> blockY = -(height * 4)
+            block5 -> {
+                System.out.println("selected block = 1")
+                when (returnStack(frame).count()) {
+                    0 -> blockY = height * 4
+                    1 -> blockY = height * 3
+                    2 -> blockY = height * 2
+                    3 -> blockY = height
+                    4 -> blockY = 0f
                 }
             }
-
-            frame3 -> {
-                System.out.println(prevStack)
-                System.out.println(stack3.count())
-                System.out.println("----------------")
-                when (prevStack - stack3.count()) {
-                    5 -> blockY = height * 4
-                    4 -> blockY = height * 3
-                    3 -> blockY = height * 2
-                    2 -> blockY = height
-                    (0) -> blockY = -height
-                    (-2) -> blockY = -(height * 2)
-                    (-3) -> blockY = 0f
-                    (-4) -> blockY = -(height * 4)
+            block4 -> {
+                System.out.println("selected block = 2")
+                when(returnStack(frame).count()){
+                    0-> blockY = height * 3
+                    1 -> blockY = height * 2
+                    2 -> blockY = height * 1
+                    3 -> blockY = 0f
                 }
+            }
+            block3 -> {
+                System.out.println("selected block = 3")
+                when(returnStack(frame).count()){
+                    0-> blockY = height * 2
+                    1 -> blockY = height
+                    2 -> blockY = 0f
+                }
+            }
+            block2 -> {
+                System.out.println("selected block = 4")
+                when(returnStack(frame).count()){
+                    0-> blockY = height
+                    1 -> blockY = 0f
+                }
+            }
+            block1 -> {
+                System.out.println("selected block = 5")
+                blockY = 0f
             }
         }
     }
@@ -226,5 +230,15 @@ class gameActivity : AppCompatActivity() {
         }
 
         return false
+    }
+
+    private fun returnStack(view: View): List<View> {
+        when (view) {
+            frame1 -> return stack1
+            frame2 -> return stack2
+            frame3 -> return stack3
+        }
+        System.out.println("didn't return a stack")
+        return stack1
     }
 }
