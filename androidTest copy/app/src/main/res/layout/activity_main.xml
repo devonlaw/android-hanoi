@@ -8,10 +8,17 @@
         tools:context=".MainActivity">
     <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" app:srcCompat="@drawable/hanoi" android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" android:layout_alignParentTop="true" android:layout_marginEnd="0dp"
-            android:id="@+id/imageView2" android:layout_marginTop="0dp" android:layout_marginRight="0dp"
-            android:scaleType="centerCrop" android:cropToPadding="true"/>
+            android:layout_height="match_parent"
+            android:src="@drawable/hanoi"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="0dp"
+            android:id="@+id/imageView2"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:scaleType="centerCrop"
+            android:cropToPadding="true"/>
     <Button
             android:text="@string/begin"
             android:layout_width="wrap_content"
